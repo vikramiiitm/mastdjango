@@ -1,0 +1,81 @@
+{% extends 'firstapp/basic.html' %}
+{% comment %} It Inherits base template skeleton {% endcomment %}
+{% load myfilters %}
+{% load static %}
+{% block title %}
+{% endblock title %}
+
+{% block css %}
+body{
+    background-image: url({% static 'firstapp/images/animereel2.jpg' %});
+    -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+    }
+.navbartitle {
+    
+    font-family: 'Birthstone', cursive;
+    font-size:100px;
+    color:white;
+    text-align:center;
+    }
+
+        .errorlist{
+        color:red;
+        }
+    }
+
+
+
+{% endblock css %}
+
+{% block body %}
+<div class="container">
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-6">
+                <h2 class="navbartitle neonText">World Of Animes For Seller</h2>        
+                <div class="form-group">
+                    <form method="POST">{% csrf_token %}
+                        {{ form.non_field_errors }}
+
+                        <label for="id_email" class="login-labels text-white">Email*</label>
+                        {{form.email.errors}}
+                        <!-- | means adding template tag which is defined in filter file -->
+                        {{form.email|addclass:'form-control'|addplaceholder:"Email"}}
+
+                        <label for="id_name" class="login-labels text-white">Name*</label>
+                        {{form.name.errors}}
+                        <!-- | means adding template tag which is defined in filter file -->
+                        {{form.name|addclass:'form-control'|addplaceholder:"Name"}}
+
+                        <label for="id_password1" class="login-labels text-white">Password*</label>
+                        {{form.password1.errors}}
+                        <!-- | means adding template tag which is defined in filter file -->
+                        {{form.password1|addclass:'form-control'|addplaceholder:'Password'}}
+
+                        <label for="id_query" class="login-labels text-white">Confirm Password*</label>
+                        {{form.password2.errors}}
+                        <!-- | means adding template tag which is defined in filter file -->
+                        {{form.password2|addclass:'form-control'|addplaceholder:'Confirm Password'}}
+
+                        <label for="id_gst" class="login-labels text-white">GST*</label>
+                        {{form.gst.errors}}
+                        <!-- | means adding template tag which is defined in filter file -->
+                        {{form.gst|addclass:'form-control'|addplaceholder:'GST'}}
+
+                        <label for="id_warehouse_location" class="login-labels text-white">warehouse_location*</label>
+                        {{form.warehouse_location.errors}}
+                        <!-- | means adding template tag which is defined in filter file -->
+                        {{form.warehouse_location|addclass:'form-control'|addplaceholder:'warehouse_location'}}
+
+                        <br>
+                        <button type="submit" class='btn btn-primary'>SignUp</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+</div>
+{% endblock body %}

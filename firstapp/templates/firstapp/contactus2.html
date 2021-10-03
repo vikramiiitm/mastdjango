@@ -1,0 +1,106 @@
+{% extends 'firstapp/basic.html' %}
+{% comment %} It Inherits base template skeleton {% endcomment %}
+{% load static %}
+{% load myfilters %}
+{% block title %}
+ContactUs
+{% endblock title %}
+
+{% block css %}
+body{
+    background-image: url({% static 'firstapp/images/animereel2.jpg' %});
+    -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+    }
+.navbartitle {
+    font-family: 'Birthstone', cursive;
+    font-size:150px;
+    color:white;
+    }
+
+     .errorlist{
+     color:red;
+ }
+
+{% endblock css %}
+
+{% block body %}
+<div class="container">
+    {% comment %} <form method="POST">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form> {% endcomment %}
+
+    <!-- Manually unpacking form -->
+    {% comment %} <form method="POST"> {% csrf_token %}
+        {{ form.non_field_errors }}
+        <!-- it will print custom error defined in views -->
+        <div class="mb-3">
+            {{form.name.errors}}
+            <label for="{{ id_name }}" class="login-label">Name</label>
+            <div class=form-group>{{form.name}} </div>
+        </div>
+        <div class="mb-3">
+            {{form.email.errors}}
+            <label for="{{ id_email }}" class="login-label">Email</label>
+            <div class=form-group>{{form.email}} </div>
+        </div>
+        <div class="mb-3">
+            {{form.phone.errors}}
+            <label for="{{ id_phone }}" class="login-label">Phone</label>
+            <div class=form-group>{{form.phone}} </div>
+        </div>
+        <div class="mb-3">
+            {{form.query.errors}}
+            <label for="{{ id_query }}" class="login-label ">Query</label>
+            <div class=form-group>{{form.query}} </div>
+        </div>
+        <button type="submit" class='btn btn-primary'>Submit</button>
+    </form> {% endcomment %}
+
+
+    <!-- form using template tag -->
+
+
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group">
+                    <form method="POST">{% csrf_token %}
+                        {{ form.non_field_errors }}
+                        <label for="id_name" class="login-labels text-white">Name*</label>
+                        {{form.name.errors}}
+                        <!-- | means adding template tag which is defined in filter file -->
+                        {{form.name|addclass:'form-control'|addplaceholder:"Name"}}
+
+                        <label for="id_email" class="login-labels text-white">Email*</label>
+                        {{form.email.errors}}
+                        <!-- | means adding template tag which is defined in filter file -->
+                        {{form.email|addclass:'form-control'|addplaceholder:"Email"}}
+
+                        <label for="id_phone" class="login-labels text-white">Phone*</label>
+                        {{form.phone.errors}}
+                        <!-- | means adding template tag which is defined in filter file -->
+                        {{form.phone|addclass:'form-control'|addplaceholder:'Phone'}}
+
+                        <label for="id_query" class="login-labels text-white">Query*</label>
+                        {{form.query.errors}}
+                        <!-- | means adding template tag which is defined in filter file -->
+                        {{form.query|addclass:'form-control'|addplaceholder:'Query'}}
+
+                        <button type="submit" class='btn btn-primary'>Submit</button>
+
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-6 d-flex align-items-center">
+                <h1 class="navbartitle neonText ">Animereel</h1>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}
