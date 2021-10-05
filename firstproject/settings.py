@@ -25,22 +25,24 @@ SECRET_KEY = 'jw#g_$^lu_5&krzmnag7i7_kpm#cgtastqqk-_s6k4)gn+1bds'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1','www.wondershop.com','services.wondershop.com']
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'firstapp',
+    'seller',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_hosts'
 ]
 
 MIDDLEWARE = [
+    'django_hosts.middleware.HostsRequestMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -48,9 +50,14 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_hosts.middleware.HostsResponseMiddleware',
 ]
 
 ROOT_URLCONF = 'firstproject.urls'
+ROOT_HOSTCONF  = 'firstproject.hosts'
+DEFAULT_HOST = 'www'
+PARENT_HOST = 'wondershop.com'
+HOST_PORT = "8000"
 
 TEMPLATES = [
     {

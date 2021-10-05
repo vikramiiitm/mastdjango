@@ -1,5 +1,6 @@
 {% load static %}
 <!doctype html>
+{% load hosts %}
 <html lang="en">
 
 <head>
@@ -8,27 +9,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Birthstone&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Birthstone&display=swap" rel="stylesheet">
 
     {% comment %} css {% endcomment %}
     <link rel="stylesheet" type="text/css" href="{% static 'firstapp/style.css' %}">
-    <!-- Bootstrap CSS -->    
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 
     <title>
-    {% block title %}{% endblock title %}
+        {% block title %}{% endblock title %}
     </title>
 
-    <link rel="icon" href="https://i.ibb.co/tH2LyJq/Anime-Reel-logos.jpg",type="image/jpeg">
+    <link rel="icon" href="https://i.ibb.co/tH2LyJq/Anime-Reel-logos.jpg" ,type="image/jpeg">
 
     {% block titleicon %}
     {% endblock titleicon %}
     <style>
+        {
+            % block css %
+        }
 
-        {% block css %}
-        
-        {% endblock css %}
+            {
+            % endblock css %
+        }
     </style>
 
 </head>
@@ -46,40 +50,38 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'firstapp:loginseller'%}">Seller</a>
-                    </li>
-                        
-                    
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'firstapp:contactus' %}">ContactUs</a>
+                        <a class="nav-link" href="{% host_url 'contactus' host 'www' %}">ContactUs </a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Dropdown
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
+                    <li class=" nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Dropdown
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link disabled">{{request.user.name}}</a>
                     </li>
-                    
+
                     <li class="nav-item">
-                    {% if not request.user.is_authenticated %}
-                        <a class="nav-link active" aria-current="page" href="{% url 'firstapp:login'%}">Login</a>
-                    {% endif %}
+                        {% if not request.user.is_authenticated %}
+                        <a class="nav-link active" aria-current="page"
+                            href="{% host_url 'login' host 'www' %}">Login</a>
+                        {% endif %}
                     </li>
 
                     <li class="nav-item">
                         {% if request.user.is_authenticated %}
-                        <a class="nav-link" href="{% url 'firstapp:logout' %}">Logout</a>
+                        <a class="nav-link" href="{% host_url 'logout' host 'www' %}">Logout</a>
                         {% endif %}
                     </li>
                 </ul>

@@ -14,5 +14,5 @@ urlpatterns = [
     path('signup/',views.RegistrationView.as_view(), name="signup"),
     path('login/',views.LoginViewer.as_view(), name="login"),
     path('logout',views.LogoutUser.as_view(),name='logout'),
-    path('signupseller/',views.RegisterViewSeller.as_view(),name='loginseller')
+    # path('signupseller/',views.RegisterViewSeller.as_view(),name='loginseller')
 ]   
