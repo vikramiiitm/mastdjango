@@ -107,7 +107,7 @@ class ContactUs(FormView):
 #             return response
 
 
-
+from firstproject import settings
 from django.core.mail import EmailMessage,send_mail
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes,force_text
@@ -117,6 +117,8 @@ from django.utils.http import urlsafe_base64_encode,urlsafe_base64_decode
 from django.template.loader import render_to_string
 from django.contrib.auth import login,logout,authenticate
 from django.contrib import messages
+
+from.tokens import account_activation_token
 
 class RegistrationView(CreateView):
     form_class = RegistrationForm
@@ -142,11 +144,29 @@ class RegistrationView(CreateView):
             message = render_to_string('firstapp/registration/acc_active_email.html',{
                 'user':user,
                 'domain' : current_site.domain,
-                'uid' : urlsafe_base64_encode(force_bytes(user.pk))
-
+                'uid' : urlsafe_base64_encode(force_bytes(user.pk)),
+                'token' : account_activation_token(user),
             })
+            print(message)
+            to_email = user_email
+            form = self.get_form()
 
-
+            try:
+                send_mail(
+                    subject = mail_subject,
+                    message = message,
+                    from_email=settings.EMAIL_HOST_USER,
+                    fail_silently=False,
+                )
+                return self.render_to_response({'form':form})
+        
+            except:
+                form.add_error('','Error occured while sending')
+                messages.error(request,'Error Occured in sending mail')
+                return self.render_to_response({'form':form})
+                
+        else:
+            return response
 class LoginViewer(LoginView):
     template_name = 'firstapp/login.html'
     success_url = '/'
