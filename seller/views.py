@@ -32,28 +32,10 @@ class RegisterViewSeller(LoginRequiredMixin,CreateView):
     form_class = RegistrationFormSeller2
     success_url = reverse_lazy('index')
 
-    def form_valid(self,form):
+    def form_valid(self, form):
         # request has user object as logged in
         user = self.request.user
-        user.type.append(user.Types.Seller)
-        user.save()
-        form.instance.user = self.request.user
-        return super().form_valid(form)
-
-
-
-
-
-# THis form only accessible if user is logged in
-class RegisterViewSeller(LoginRequiredMixin,CreateView):
-    template_name = 'seller/registerseller.html'
-    form_class = RegistrationFormSeller2
-    success_url = reverse_lazy('index')
-
-    def form_valid(self,form):
-        # request has user object as logged in
-        user = self.request.user
-        user.type.append(user.Types.Seller)
+        user.type.append(user.Types.SELLER)
         user.save()
         form.instance.user = self.request.user
         return super().form_valid(form)

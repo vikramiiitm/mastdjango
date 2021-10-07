@@ -5,10 +5,12 @@ from django.core.exceptions import ValidationError
 from django.views.generic.edit import CreateView
 from .forms import ContactUsForm,RegistrationForm, RegistrationFormSeller, RegistrationFormSeller2
 from django.views.generic import FormView
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy,reverse
 from django.contrib.auth.views import LoginView,LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import SellerAdditional,CustomUser
+
+
 # Create your views here.
 
 # Function based views 
@@ -104,10 +106,46 @@ class ContactUs(FormView):
 #         else:
 #             return response
 
+
+
+from django.core.mail import EmailMessage,send_mail
+from django.contrib.sites.shortcuts import get_current_site
+from django.utils.encoding import force_bytes,force_text
+# Encode a bytestring to a base64 string for use in URLs. Strip any trailingequal signs.
+from django.utils.http import urlsafe_base64_encode,urlsafe_base64_decode
+#Load a template and render it with a context. Return a string.template_name may be a string or a list of strings.
+from django.template.loader import render_to_string
+from django.contrib.auth import login,logout,authenticate
+from django.contrib import messages
+
 class RegistrationView(CreateView):
     form_class = RegistrationForm
     template_name = 'firstapp/registerBasicUser.html'
     success_url = '/login'
+
+    # adding email verification
+
+    def post(self,request,*args,**kwargs):
+        # form = RegistrationForm(request.POST)
+        # calling super saves the user
+        response = super().post(request,*args,**kwargs)
+        user_email = request.POST.get('email')
+        # 302 means success
+        if response.status_code ==302:
+            user = CustomUser.objects.get(email=user_email)
+            # making user active false untill verified
+            user.is_active = False
+            user.save()
+
+            current_site = get_current_site(request) #www.wondershop.com
+            mail_subject = 'Activate your account'
+            message = render_to_string('firstapp/registration/acc_active_email.html',{
+                'user':user,
+                'domain' : current_site.domain,
+                'uid' : urlsafe_base64_encode(force_bytes(user.pk))
+
+            })
+
 
 class LoginViewer(LoginView):
     template_name = 'firstapp/login.html'
@@ -124,15 +162,27 @@ class LogoutUser(LogoutView):
 
 
 # THis form only accessible if user is logged in
-class RegisterViewSeller(LoginRequiredMixin,CreateView):
-    template_name = 'firstapp/registerseller.html'
-    form_class = RegistrationFormSeller2
-    success_url = '/'
+# class RegisterViewSeller(LoginRequiredMixin,CreateView):
+#     template_name = 'firstapp/registerseller.html'
+#     form_class = RegistrationFormSeller2
+#     success_url = reverse_lazy("index")
 
-    def form_valid(self,form):
-        # request has user object as logged in
-        user = self.request.user
-        user.type.append(user.Types.Seller)
-        user.save()
-        form.instance.user = self.request.user
-        return super().form_valid(form)
+#     def form_valid(self,form):
+#         # request has user object as logged in
+#         user = self.request.user
+#         user.type.append(user.Types.Seller)
+#         user.save()
+#         form.instance.user = self.request.user
+#         return super().form_valid(form)
+
+def testsession(request):
+    if request.session.get('test',False):
+        print(request.session('test'))
+    
+    request.session.set_expiry(1)
+
+    try:
+        request.session['test'] = request.user.name
+    except:
+        request.session['test'] = "Not logged in"
+    return render(request,'firstapp/testsession.html')

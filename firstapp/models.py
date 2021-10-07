@@ -9,7 +9,7 @@ from django.core.validators import RegexValidator
 
 from django.contrib.auth.models import  AbstractUser,AbstractBaseUser
 from django.utils.translation import ugettext_lazy as _
-from .managers import  CustomUserManager
+from .managers import CustomUserManager
 from django.contrib.auth.models import PermissionsMixin
 
 """

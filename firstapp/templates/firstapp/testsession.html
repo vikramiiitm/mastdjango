@@ -1,0 +1,18 @@
+{% extends 'firstapp/basic.html' %}
+{% comment %} It Inherits base template skeleton {% endcomment %}
+
+{% block title %}
+{% endblock title %}
+
+{% block css %}
+{% endblock css %}
+
+{% block body %}
+
+{% if request.user.is_authenticated %}
+    <h1> {{ use.name }} </h1>
+{% endif %}
+
+{{ request.session.test }}
+
+{% endblock body %}

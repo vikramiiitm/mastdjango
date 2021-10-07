@@ -25,7 +25,7 @@ SECRET_KEY = 'jw#g_$^lu_5&krzmnag7i7_kpm#cgtastqqk-_s6k4)gn+1bds'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','www.wondershop.com','services.wondershop.com']
+ALLOWED_HOSTS = ['127.0.0.1','www.wondershop.com','services.wondershop.com','admin.wondershop.com',]
 
 
 # Application definition
@@ -88,6 +88,14 @@ DATABASES = {
     }
 }
 
+# cache
+
+CACHE = {
+    'default' : {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'Location' : 'my_cache_table'
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -126,8 +134,18 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = "static"
 AUTH_USER_MODEL = 'firstapp.CustomUser'
 
 LOGIN_URL = '/login'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/login'
+
+# email
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smpt.gmail.com'
+EMAIL_PORT =587
+EMAIL_HOST_USER = "vikramiiitmc@gmail.com"
+EMAIL_HOST_PASSWORD = "hiihuwkwkhhgisru"
+DEFAULT_FROM_EMAIL = 'Testing <vikramiiitmc@gmail.com>'
