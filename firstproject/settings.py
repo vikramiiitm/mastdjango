@@ -144,8 +144,13 @@ LOGOUT_REDIRECT_URL = '/login'
 # email
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
-EMAIL_HOST = 'smpt.gmail.com'
+EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT =587
 EMAIL_HOST_USER = "vikramiiitmc@gmail.com"
-EMAIL_HOST_PASSWORD = "hiihuwkwkhhgisru"
+EMAIL_HOST_PASSWORD = "jaycoqlmajvnczau"
 DEFAULT_FROM_EMAIL = 'Testing <vikramiiitmc@gmail.com>'
+
+from django.contrib.messages import constants as messages
+MESSAGE_TAGS = {
+    messages.ERROR : 'danger'
+}

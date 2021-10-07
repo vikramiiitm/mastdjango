@@ -11,11 +11,11 @@ urlpatterns = [
     
     # Aythnetication ENDPOINT
     # path('signup',views.RegistrationViewSeller.as_view())
-    path('signup/',views.RegistrationView.as_view(), name="signup"),
+    path('signup/',views.RegisterView.as_view(), name="signup"),
     path('login/',views.LoginViewer.as_view(), name="login"),
     path('logout',views.LogoutUser.as_view(),name='logout'),
     # path('signupseller/',views.RegisterViewSeller.as_view(),name='signupseller')
-
+    path('activate/<uidb64>/<token>', views.activate, name='activate'),
     # session
     path('test',views.testsession, name="testsession")
 ]   
