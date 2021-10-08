@@ -26,16 +26,18 @@
     {% block titleicon %}
     {% endblock titleicon %}
     <style>
+        }
         {% block css %}
 
         {% endblock css %}
+
     </style>
 
 </head>
 
 <body>
 
-    <nav class="navb navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navb navfix navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">Animereel</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -52,6 +54,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% host_url 'signupseller' host 'services' %}">SignUp Seller</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% host_url 'listproduct' host 'www' %}">Products</a>
                     </li>
                     <li class=" nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"

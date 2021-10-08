@@ -8,7 +8,7 @@ from django.views.generic import FormView
 from django.urls import reverse_lazy,reverse
 from django.contrib.auth.views import LoginView,LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import SellerAdditional,CustomUser
+from .models import SellerAdditional,CustomUser,Product,ProductInCart
 
 
 # Create your views here.
@@ -249,7 +249,7 @@ class LogoutUser(LogoutView):
 
 
 
-
+# register without email activation
 # THis form only accessible if user is logged in
 # class RegisterViewSeller(LoginRequiredMixin,CreateView):
 #     template_name = 'firstapp/registerseller.html'
@@ -275,3 +275,26 @@ def testsession(request):
     except:
         request.session['test'] = "Not logged in"
     return render(request,'firstapp/testsession.html')
+
+
+
+
+# display products
+from django.views.generic import ListView,DetailView
+
+class ListProducts(ListView):
+    template_name = "firstapp/listproducts.html"
+    model = Product
+    context_object_name = "product"
+
+# function based list view
+# def listProducts(request):
+#     prodcut = Product.objects.all()
+#     return render(request,"firstapp/listproducts.html",{'product':prodcut})
+
+class ProductDetail(DetailView):
+    model = Product
+    template_name = "firstapp/productdetail.html"
+    context_object_name = "product"
+
+    # we will need to aff pk in urls

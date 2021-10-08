@@ -134,11 +134,18 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = "static"
+STATIC_ROOT = os.path.join(BASE_DIR,'static_cdn')
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR,"static")
+]
+
+# customuser
 AUTH_USER_MODEL = 'firstapp.CustomUser'
 
 LOGIN_URL = '/login'
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = 'index'
 LOGOUT_REDIRECT_URL = '/login'
 
 # email

@@ -1,0 +1,24 @@
+body {
+    /* background-image:url('images/animereel2.jpg') no-repeat; */
+    /* background-color: rgb(59, 136, 136); */
+}
+
+.navb {
+    background-color:rgb(119, 131, 238);
+    color: white;
+}
+
+
+
+.neonText {
+    color: #fff;
+    text-shadow:
+        0 0 7px #fff,
+        0 0 10px #fff,
+        0 0 21px #fff,
+        0 0 42px rgb(180, 200, 245),
+        0 0 82px rgb(142, 152, 241),
+        0 0 92px rgb(113, 133, 243),
+        0 0 102px rgb(97, 111, 231),
+        0 0 151px rgb(80, 43, 247);
+  }
