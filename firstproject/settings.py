@@ -56,7 +56,7 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'firstproject.urls'
 ROOT_HOSTCONF  = 'firstproject.hosts'
 DEFAULT_HOST = 'www'
-PARENT_HOST = 'wondershop.com'
+PARENT_HOST = '13.233.30.85'
 HOST_PORT = "8000"
 
 TEMPLATES = [
@@ -134,11 +134,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR,'static_cdn')
+STATIC_ROOT = os.path.join(BASE_DIR,'static')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR,"static")
+    os.path.join(BASE_DIR,"static_cdn")
 ]
 
 # customuser
