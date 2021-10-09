@@ -25,7 +25,7 @@ SECRET_KEY = 'jw#g_$^lu_5&krzmnag7i7_kpm#cgtastqqk-_s6k4)gn+1bds'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','www.wondershop.com','services.wondershop.com','admin.wondershop.com',]
+ALLOWED_HOSTS = ['127.0.0.1','www.wondershop.com','services.wondershop.com','admin.wondershop.com','13.233.30.85 ']
 
 
 # Application definition
