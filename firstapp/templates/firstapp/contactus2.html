@@ -7,13 +7,13 @@ ContactUs
 {% endblock title %}
 
 {% block css %}
-body{
-    background-image: url("firstapp/images/animereel2.jpg");
+    body{
+    background-image: url({% static "firstapp/images/animereel2.jpg" %});
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-}
+    }
 .navbartitle {
     font-family: 'Birthstone', cursive;
     font-size:150px;
@@ -98,7 +98,7 @@ body{
             </div>
 
             <div class="col-6 d-flex align-items-center">
-                <h1 class="navbartitle neonText ">Animereel</h1>
+                <h1 class="navbartitle neonText ">StyleMe</h1>
             </div>
         </div>
     </div>
