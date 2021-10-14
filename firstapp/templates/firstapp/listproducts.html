@@ -78,7 +78,7 @@
                     <h5 class="card-title"><a href="{% host_url 'productdetail' pk=product.pk host 'www' %}">{{product.product_name}}</a></h5>
                     <p class="card-text">{{product.product_price}}</p>
                 </div>
-                <a href="#" class="btnmargin btn btn-primary">Add to cart</a>
+                <a href="{% url 'addtocart' id=product.product_id%}" class="btnmargin btn btn-primary">Add to cart</a>
             </div>
         </div>
         {% endfor %}

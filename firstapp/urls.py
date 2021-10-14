@@ -37,7 +37,10 @@ urlpatterns = [
 
     #productlist
     path('listproduct',views.ListProducts.as_view(),name="listproduct"), 
-    path('productdetail/<int:pk>',views.ProductDetail.as_view(),name='productdetail')
+    path('productdetail/<int:pk>',views.ProductDetail.as_view(),name='productdetail'),
+    path('addtocart/<int:id>',views.addToCart,name='addtocart'),
+    path('displaycart/',views.DisplayCart.as_view(),name="displaycart"),
+    path('updatecart/',views.UpdateCart.as_view(),name="updatecart")
 ]
 
 

@@ -1,9 +1,8 @@
 from re import TEMPLATE
 from django.shortcuts import redirect, render,HttpResponse
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView,CreateView,UpdateView,ListView,DetailView,View
 from django.core.exceptions import ValidationError
-from django.views.generic.edit import CreateView
-from .forms import ContactUsForm,RegistrationForm, RegistrationFormSeller, RegistrationFormSeller2
+from .forms import ContactUsForm,RegistrationForm, RegistrationFormSeller, RegistrationFormSeller2,CartForm
 from django.views.generic import FormView
 from django.urls import reverse_lazy,reverse
 from django.contrib.auth.views import LoginView,LogoutView
@@ -298,3 +297,64 @@ class ProductDetail(DetailView):
     context_object_name = "product"
 
     # we will need to aff pk in urls
+
+# cart
+from django.contrib.auth.decorators import login_required
+from .models import Cart
+
+
+@login_required
+def addToCart(request, id):
+    try:
+        cart = Cart.objects.get(user = request.user)
+        try:
+            product = Product.objects.get(product_id = id)
+            try:
+                productincart = ProductInCart.objects.get(cart = cart, product = product)
+                productincart.quantity = productincart.quantity + 1
+                productincart.save()
+                messages.success(request, "Successfully added to cart")
+                return redirect(reverse_lazy("displaycart"))
+            except:
+                productincart = ProductInCart.objects.create(cart = cart, product = product, quantity=1)
+                messages.success(request, "Successfully added to cart")
+                return redirect(reverse_lazy("displaycart"))
+        except:
+            messages.error(request, "Product can not be found")
+            return redirect(reverse_lazy('listproduct'))
+    except:
+        cart = Cart.objects.create(user = request.user)
+        try:
+            product = Product.objects.get(product_id = id)
+            productincart = ProductInCart.objects.create(cart = cart, product = product, quantity = 1)
+            messages.success(request, "Successfully added to cart")
+            return redirect(reverse_lazy("displaycart"))
+        except:
+            messages.error(request, "Error in adding to cart. Please try again")
+            return redirect(reverse_lazy('listproduct'))
+
+
+class DisplayCart(LoginRequiredMixin, ListView):
+    model = ProductInCart
+    template_name = "firstapp/displaycart.html"
+    context_object_name = "cart"
+
+    def get_queryset(self):
+        queryset = ProductInCart.objects.filter(cart = self.request.user.cart)
+        return queryset
+
+class UpdateCart(LoginRequiredMixin, UpdateView):
+    model = ProductInCart
+    form_class = CartForm
+    success_url = reverse_lazy("displaycart")
+
+    def post(self, request, *args, **kwargs):
+        response = super().post(request, *args, **kwargs)
+        if response.status_code == 302:
+            if int(request.POST.get("quantity")) == 0:
+                productincart = self.get_object()
+                productincart.delete()
+            return response
+        else:
+            messages.error(request, "error in quantity")
+            return redirect(reverse_lazy("displaycart"))

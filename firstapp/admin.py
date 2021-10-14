@@ -108,7 +108,7 @@ class CartAdmin(admin.ModelAdmin):
 
     #filter on side bar for some reason this works
     list_filter = ['user__is_staff','created_on'] #with direct forign key()user no error but not shown in filters, with function error
-    ordering = ['user__username']
+    ordering = ['user']
     search_fields = ['user__username'] #with foreign key no error but filtering not possible directly
 
 # @admin.register(Cart) # through register decorator
