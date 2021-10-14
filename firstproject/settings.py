@@ -56,7 +56,7 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'firstproject.urls'
 ROOT_HOSTCONF  = 'firstproject.hosts'
 DEFAULT_HOST = 'www'
-PARENT_HOST = '13.233.30.85'
+PARENT_HOST = 'wondershop.com'
 HOST_PORT = "8000"
 
 TEMPLATES = [

@@ -281,11 +281,11 @@ class Product(models.Model):
         return self.product_name
 
 # Cart Model Manager
-class CartManager(models.Manager):
-    # method to create cart for user
-    def create_cart(self, user):
-        cart = self.create(user = user)
-        return cart
+# class CartManager(models.Manager):
+#     # method to create cart for user
+#     def create_cart(self, user):
+#         cart = self.create(user = user)
+#         return cart
 
 class  Cart(models.Model):
     cart_id = models.AutoField(primary_key=True)
@@ -293,7 +293,7 @@ class  Cart(models.Model):
     created_on = models.DateTimeField(default = timezone.now)
 
     # instantiating Cart manager
-    objects = CartManager()
+    # objects = CartManager()   
 
 class ProductInCart(models.Model):
     class Meta:
